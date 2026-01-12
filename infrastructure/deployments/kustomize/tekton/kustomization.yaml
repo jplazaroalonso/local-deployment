@@ -85,7 +85,19 @@ patches:
               - name: webhook
                 command: 
                   - /usr/local/bin/webhook
-                args: []
+                args:
+                  - -entrypoint-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -nop-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -sidecarlogresults-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -workingdirinit-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -shell-image
+                  - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
+                  - -shell-image-win
+                  - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
   - target:
       kind: Deployment
       labelSelector: app.kubernetes.io/name=events
@@ -103,6 +115,19 @@ patches:
               - name: tekton-events-controller
                 command:
                   - /usr/local/bin/events
+                args:
+                  - -entrypoint-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -nop-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -sidecarlogresults-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -workingdirinit-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -shell-image
+                  - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
+                  - -shell-image-win
+                  - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
   - target:
       kind: Deployment
       labelSelector: app.kubernetes.io/name=resolvers
@@ -120,4 +145,16 @@ patches:
               - name: controller
                 command:
                   - /usr/local/bin/resolvers
-                args: []
+                args:
+                  - -entrypoint-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -nop-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -sidecarlogresults-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -workingdirinit-image
+                  - harbor.devportal.es/confidential/tekton:v1.6.0
+                  - -shell-image
+                  - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
+                  - -shell-image-win
+                  - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
