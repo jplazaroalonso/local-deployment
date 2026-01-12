@@ -14,7 +14,10 @@ WORKDIR /src
 COPY --from=ui-builder /src .
 ENV CGO_ENABLED=0
 # Build the unified binary with version flags
-RUN go build -v -ldflags="-X github.com/argoproj/argo-cd/v2/common.version=${VERSION}" -o /usr/local/bin/argocd ./cmd
+RUN /bin/sh -c 'CLEAN_VERSION=$(echo "$VERSION" | sed "s/^v//"); \
+    echo "Original VERSION: $VERSION"; \
+    echo "Clean VERSION: $CLEAN_VERSION"; \
+    go build -v -ldflags="-X github.com/argoproj/argo-cd/v2/common.version=$CLEAN_VERSION" -o /usr/local/bin/argocd ./cmd'
 
 # Stage 3: Final Image
 FROM debian:bookworm-slim
