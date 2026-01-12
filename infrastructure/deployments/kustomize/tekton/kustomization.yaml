@@ -70,91 +70,61 @@ patches:
                   - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
   - target:
       kind: Deployment
-      labelSelector: app.kubernetes.io/name=webhook
+      name: tekton-pipelines-webhook
       namespace: tekton-pipelines
     patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: tekton-pipelines-webhook
-        namespace: tekton-pipelines
-      spec:
-        template:
-          spec:
-            containers:
-              - name: webhook
-                command: 
-                  - /usr/local/bin/webhook
-                args:
-                  - -entrypoint-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -nop-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -sidecarlogresults-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -workingdirinit-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -shell-image
-                  - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
-                  - -shell-image-win
-                  - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
+      - op: replace
+        path: /spec/template/spec/containers/0/args
+        value:
+          - -entrypoint-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -nop-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -sidecarlogresults-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -workingdirinit-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -shell-image
+          - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
+          - -shell-image-win
+          - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
   - target:
       kind: Deployment
-      labelSelector: app.kubernetes.io/name=events
+      name: tekton-events-controller
       namespace: tekton-pipelines
     patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-          name: tekton-events-controller
-          namespace: tekton-pipelines
-      spec:
-        template:
-          spec:
-            containers:
-              - name: tekton-events-controller
-                command:
-                  - /usr/local/bin/events
-                args:
-                  - -entrypoint-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -nop-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -sidecarlogresults-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -workingdirinit-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -shell-image
-                  - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
-                  - -shell-image-win
-                  - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
+      - op: replace
+        path: /spec/template/spec/containers/0/args
+        value:
+          - -entrypoint-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -nop-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -sidecarlogresults-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -workingdirinit-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -shell-image
+          - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
+          - -shell-image-win
+          - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
   - target:
       kind: Deployment
-      labelSelector: app.kubernetes.io/name=resolvers
+      name: tekton-pipelines-remote-resolvers
       namespace: tekton-pipelines
     patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: tekton-pipelines-remote-resolvers
-        namespace: tekton-pipelines
-      spec:
-        template:
-          spec:
-            containers:
-              - name: controller
-                command:
-                  - /usr/local/bin/resolvers
-                args:
-                  - -entrypoint-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -nop-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -sidecarlogresults-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -workingdirinit-image
-                  - harbor.devportal.es/confidential/tekton:v1.6.0
-                  - -shell-image
-                  - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
-                  - -shell-image-win
-                  - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
+      - op: replace
+        path: /spec/template/spec/containers/0/args
+        value:
+          - -entrypoint-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -nop-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -sidecarlogresults-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -workingdirinit-image
+          - harbor.devportal.es/confidential/tekton:v1.6.0
+          - -shell-image
+          - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
+          - -shell-image-win
+          - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
