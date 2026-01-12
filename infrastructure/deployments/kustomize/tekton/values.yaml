@@ -13,7 +13,17 @@ remoteresolver:
   deployment:
     image: harbor.devportal.es/confidential/tekton:v1.6.0
 
-# Events key is uncertain, leaving it blank to rely on Kustomize override which uses exact name match
-# events:
-#   deployment:
-#     image: ...
+# Events controller
+events:
+  deployment:
+    image: harbor.devportal.es/confidential/tekton:v1.6.0
+
+# Helper images required by Tekton
+# These are sidecar images used during pipeline execution
+images:
+  entrypoint: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/entrypoint:v0.65.0
+  nop: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/nop:v0.65.0
+  shell: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/shell:v0.65.0
+  shellWin: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/shell:v0.65.0
+  sidecarlogresults: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/sidecarlogresults:v0.65.0
+  workingdirinit: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/workingdirinit:v0.65.0
