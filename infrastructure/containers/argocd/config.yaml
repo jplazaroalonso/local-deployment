@@ -1,0 +1,5 @@
+version: "v2.13.2"
+repository: "https://github.com/argoproj/argo-cd.git"
+architectures:
+  - "amd64"
+  - "arm64"

@@ -1,0 +1,5 @@
+version: "v0.8.0"
+repository: "https://github.com/keptn/lifecycle-toolkit.git"
+architectures:
+  - "amd64"
+  - "arm64"

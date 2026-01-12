@@ -1,0 +1,5 @@
+version: "v3.18.0"
+repository: "https://github.com/open-policy-agent/gatekeeper.git"
+architectures:
+  - "amd64"
+  - "arm64"

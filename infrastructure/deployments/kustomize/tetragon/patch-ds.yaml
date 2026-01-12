@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tetragon
+  namespace: tetragon
+spec:
+  template:
+    spec:
+      volumes:
+      - name: bpf-maps
+        hostPath: null
+        emptyDir: {}
+      - name: cilium-run
+        hostPath: null
+        emptyDir: {}
+      - name: export-logs
+        hostPath: null
+        emptyDir: {}
+      containers:
+      - name: tetragon
+        volumeMounts:
+        - name: bpf-maps
+          mountPath: /sys/fs/bpf
+          mountPropagation: None
+        - name: cilium-run
+          mountPath: /run/cilium
+          mountPropagation: None
+        - name: export-logs
+          mountPath: /run/cilium/tetragon
+          mountPropagation: None

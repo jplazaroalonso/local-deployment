@@ -1,0 +1,29 @@
+image:
+  repository: openpolicyagent/gatekeeper
+  release: v3.18.0
+  pullPolicy: IfNotPresent # Or Never if local? I'll use IfNotPresent but rely on image override.
+
+# Disable crds inclusion in helm chart as Kustomize handles CRDs?
+# Usually enable them.
+crds:
+  enable: true
+
+replicas: 1
+
+audit:
+  replicas: 1
+
+controllerManager:
+  priorityClassName: system-cluster-critical
+
+# Enable mutation if needed
+mutation:
+  enable: false
+
+# PSP is deprecated, disable
+psp:
+  enabled: false
+
+# Disable upgrades unless needed
+upgradeCRDs:
+  enabled: true

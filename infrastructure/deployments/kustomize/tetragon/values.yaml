@@ -1,0 +1,33 @@
+tetragon:
+  image:
+    repository: local/tetragon
+    tag: v1.6.0
+    pullPolicy: IfNotPresent
+  # Enable process creds via generic kprobes if kernel < 5.11 (optional optimization)
+  enableProcessCred: false
+  # Disable policy filter to avoid BPF map creation errors in restricted environments
+  enablePolicyFilter: false
+  # Export to standard output for now
+  export:
+    stdout:
+      enabled: true
+  extraVolumeMounts:
+    - mountPath: /var/run/tetragon
+      name: tetragon-run
+
+extraVolumes:
+  - name: tetragon-run
+    emptyDir: {}
+
+tetragonOperator:
+  enabled: true
+  image:
+    repository: quay.io/cilium/tetragon-operator
+    tag: v1.6.0
+    pullPolicy: IfNotPresent
+  # Operator creates CRDs
+  forceUpdateCRDs: true
+
+# Enable platform integration
+prometheus:
+  enabled: true

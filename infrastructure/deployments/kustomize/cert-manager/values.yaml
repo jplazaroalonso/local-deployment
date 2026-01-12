@@ -1,0 +1,58 @@
+# cert-manager Helm values for Confidential Platform
+# Version: v1.19.2
+
+# Install CRDs with the Helm chart
+crds:
+  enabled: true
+  keep: true
+
+# Global settings
+global:
+  leaderElection:
+    namespace: "cert-manager"
+  podSecurityPolicy:
+    enabled: false
+  logLevel: 2
+
+# Controller image configuration
+image:
+  pullPolicy: Never
+  repository: cert-manager-controller
+  tag: v1.19.2
+
+# Webhook image configuration
+webhook:
+  image:
+    pullPolicy: Never
+    repository: cert-manager-webhook
+    tag: v1.19.2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
+
+# CA Injector image configuration
+cainjector:
+  image:
+    pullPolicy: Never
+    repository: cert-manager-cainjector
+    tag: v1.19.2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+
+# Resource limits for controller
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi

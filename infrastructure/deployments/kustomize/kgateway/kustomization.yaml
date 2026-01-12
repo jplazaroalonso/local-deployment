@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: kgateway-system
+
+resources:
+  - namespace.yaml
+  # Gateway API CRDs - must be installed before Helm chart
+  - crds/gatewayclasses.yaml
+  - crds/gateways.yaml
+  - crds/httproutes.yaml
+  - crds/referencegrants.yaml
+  - crds/grpcroutes.yaml
+  # Gateway and Certificate resources (applied after Helm chart installs CRDs)
+  - gateway.yaml
+  - gateway-params.yaml
+  - certificate.yaml
+
+helmCharts:
+  # kgateway-specific CRDs (backends, trafficpolicies, etc.)
+  - name: kgateway-crds
+    repo: oci://cr.kgateway.dev/kgateway-dev/charts
+    version: v2.1.2
+    releaseName: kgateway-crds
+    namespace: kgateway-system
+  # kgateway control plane
+  - name: kgateway
+    repo: oci://cr.kgateway.dev/kgateway-dev/charts
+    version: v2.1.2
+    releaseName: kgateway
+    namespace: kgateway-system
+    valuesFile: values.yaml
+    includeCRDs: false
+
+# =============================================================================
+# Image overrides for ARM64 confidential containers
+# =============================================================================
+# All images are built from source for ARM64 architecture.
+# See infrastructure/containers/kgateway/ and kgateway-envoy-wrapper/
+# =============================================================================
+images:
+  # kgateway controller
+  - name: cr.kgateway.dev/kgateway-dev/kgateway
+    newName: harbor.devportal.es/confidential/kgateway
+    newTag: v2.1.2-arm64
+  # envoy-wrapper (data plane proxy)
+  - name: cr.kgateway.dev/kgateway-dev/envoy-wrapper
+    newName: envoy-wrapper
+    newTag: v2.1.2-amd64

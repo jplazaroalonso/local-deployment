@@ -1,0 +1,4 @@
+version: v1.6.0
+repo: https://github.com/tektoncd/pipeline
+chart: tekton-pipelines
+chartRepo: https://cdfoundation.github.io/tekton-helm-chart/

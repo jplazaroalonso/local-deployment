@@ -1,0 +1,19 @@
+# Tekton Pipelines Values
+
+controller:
+  deployment:
+    image: harbor.devportal.es/confidential/tekton:v1.6.0
+
+webhook:
+  deployment:
+    image: harbor.devportal.es/confidential/tekton:v1.6.0
+
+# Using detected keys
+remoteresolver:
+  deployment:
+    image: harbor.devportal.es/confidential/tekton:v1.6.0
+
+# Events key is uncertain, leaving it blank to rely on Kustomize override which uses exact name match
+# events:
+#   deployment:
+#     image: ...

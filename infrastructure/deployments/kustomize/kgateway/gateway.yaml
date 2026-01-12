@@ -1,0 +1,56 @@
+# =============================================================================
+# Gateway Configuration for Confidential Platform
+# =============================================================================
+# This Gateway terminates TLS using the local CA wildcard certificate
+# and forwards HTTP traffic to backend services (Harbor, ArgoCD, Tekton).
+#
+# Domain: portal.local (for local development)
+# Subdomains: argocd.portal.local, harbor.portal.local, tekton.portal.local
+#
+# TLS Termination Architecture:
+#   External (HTTPS :443) -> kgateway -> Backend Services (HTTP :80)
+#
+# NOTE: GatewayClass is created by the kgateway Helm chart, do not duplicate here.
+# =============================================================================
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: platform-gateway
+  namespace: kgateway-system
+  labels:
+    app.kubernetes.io/name: kgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: confidential-platform
+  annotations:
+    # Reference GatewayParameters for proxy configuration
+    gateway.kgateway.dev/gateway-parameters-name: platform-gateway-params
+spec:
+  gatewayClassName: kgateway
+  infrastructure:
+    # Reference custom parameters for the envoy proxy
+    parametersRef:
+      group: gateway.kgateway.dev
+      kind: GatewayParameters
+      name: platform-gateway-params
+  listeners:
+    # HTTP listener (for redirect to HTTPS or health checks)
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    # HTTPS listener - TLS termination with local CA certificate
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: portal-local-wildcard-tls
+            namespace: kgateway-system

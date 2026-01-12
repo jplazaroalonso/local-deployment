@@ -1,0 +1,30 @@
+# =============================================================================
+# Gateway Parameters for Platform Gateway
+# =============================================================================
+# Configures the Envoy proxy deployed by kgateway.
+# Allows writable filesystem for Envoy temp files.
+# =============================================================================
+
+apiVersion: gateway.kgateway.dev/v1alpha1
+kind: GatewayParameters
+metadata:
+  name: platform-gateway-params
+  namespace: kgateway-system
+spec:
+  kube:
+    envoyContainer:
+      image:
+        registry: docker.io
+        repository: library/envoy-wrapper
+        tag: v2.1.2-amd64
+        pullPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10101
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: false  # Allow envoy to write temp files
+        capabilities:
+          drop:
+            - ALL
+          add:
+            - NET_BIND_SERVICE

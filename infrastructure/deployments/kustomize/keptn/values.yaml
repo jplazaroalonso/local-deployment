@@ -1,0 +1,8 @@
+lifecycleOperator:
+  replicas: 1
+  image:
+    repository: keptn/lifecycle-operator
+    tag: v1.1.1 
+    pullPolicy: IfNotPresent
+
+# Standard Config
