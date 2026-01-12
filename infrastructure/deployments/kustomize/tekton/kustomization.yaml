@@ -128,3 +128,26 @@ patches:
           - cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791
           - -shell-image-win
           - mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6
+  - target:
+      kind: ConfigMap
+      name: config-defaults
+      namespace: tekton-pipelines
+    patch: |-
+      - op: add
+        path: /data/default-entrypoint-image
+        value: "harbor.devportal.es/confidential/tekton:v1.6.0"
+      - op: add
+        path: /data/default-nop-image
+        value: "harbor.devportal.es/confidential/tekton:v1.6.0"
+      - op: add
+        path: /data/default-shell-image
+        value: "cgr.dev/chainguard/busybox@sha256:19f02276bf8dbdd62f069b922f10c65262cc34b710eea26ff928129a736be791"
+      - op: add
+        path: /data/default-shell-image-win
+        value: "mcr.microsoft.com/powershell:nanoserver@sha256:b6d5ff841b78bdf2dfed7550000fd4f3437385b8fa686ec0f010be24777654d6"
+      - op: add
+        path: /data/default-sidecarlogresults-image
+        value: "harbor.devportal.es/confidential/tekton:v1.6.0"
+      - op: add
+        path: /data/default-workingdirinit-image
+        value: "harbor.devportal.es/confidential/tekton:v1.6.0"
