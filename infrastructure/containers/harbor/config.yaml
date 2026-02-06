@@ -1,5 +1,0 @@
-version: "v2.14.1"
-repository: "https://github.com/goharbor/harbor.git"
-architectures:
-  - "amd64"
-  - "arm64"

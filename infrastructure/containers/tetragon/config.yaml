@@ -1,5 +1,0 @@
-version: "v1.6.0"
-repository: "https://github.com/cilium/tetragon.git"
-architectures:
-  - "amd64"
-  - "arm64"

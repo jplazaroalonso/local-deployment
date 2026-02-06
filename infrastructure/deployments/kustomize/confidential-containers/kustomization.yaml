@@ -1,6 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-resources:
-  - ../../../kubernetes/confidential-containers/enclave-cc-runtimeclass.yaml
-  - ../../../kubernetes/confidential-containers/cc-runtime-sample.yaml

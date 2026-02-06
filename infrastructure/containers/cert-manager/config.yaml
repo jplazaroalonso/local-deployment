@@ -1,5 +1,0 @@
-version: "v1.19.2"
-repository: "https://github.com/cert-manager/cert-manager.git"
-architectures:
-  - "amd64"
-  - "arm64"

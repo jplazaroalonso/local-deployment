@@ -1,5 +1,0 @@
-version: "v2.1.2"
-repository: "https://github.com/kgateway-dev/kgateway.git"
-architectures:
-  - "amd64"
-  - "arm64"
